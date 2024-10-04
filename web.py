@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from agents import Agent, helpful_assistant
+from models.agent import Agent
+from agents.helpful_assistant import helpful_assistant
 
 
 app = FastAPI()
@@ -12,7 +13,7 @@ class AgentRequest(BaseModel):
 agents = {}
 
 @app.post("/agent")
-async def chat(request: AgentRequest):
+async def message(request: AgentRequest):
     agent_id = request.agent_id
     if agent_id not in agents:
         agents[agent_id] = Agent.clone(helpful_assistant)
