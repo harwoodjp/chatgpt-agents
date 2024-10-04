@@ -27,6 +27,7 @@ class Agent:
         response_format=self.response_format
     )
     response_content = response.choices[0].message.content
+    self.messages.append({"role": "assistant", "content": response_content})
     return self.response_parser(response_content)
   @staticmethod
   def clone(agent):
